@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+// import wordList from "./russian_nouns_5.json"
+//что-то происходит с кодировкой файла. символы становятся <?>, а кириллица юникодом (\uXXXX)
 
 class App extends React.Component {
   state = {
@@ -8,19 +10,30 @@ class App extends React.Component {
 
   
   getWord = () => {
-    
-    fetch('/russian_nouns_5.txt')
-    .then((r) => r.text())
-    .then(text  => {
-      console.log(text);
+    const wordId = Math.floor(Math.random() * (3492 - 1)) + 1
+    console.log(wordId)
+
+    // console.log(data)
+    // let data = require('./russian_nouns_5.json');
+    // console.log(wordList);
+
+    fetch('./russian_nouns_5.json'
+    // , {
+    //   method: 'GET',
+    //   headers: {'Content-Type': 'application/json; charset=utf-8'}
+    // }
+    )
+    .then((res) =>  {
+    return res.json()
     })
-  
-    // fetch("wordle-ru/src/russian_nouns_5.txt") 
-    //   .then((res) => res.txt())
-    //   .then ((data) => {
-    //     console.log(data)
-    //   })
-    // this.setState({ word: 'ok' });
+    .then ((data) => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+      // читает файл index.html вместо russian_nouns_5.json
+    });
+
   };
   render() {
     const { word } = this.state;
